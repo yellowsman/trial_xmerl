@@ -1,5 +1,3 @@
-// src/xml_project.gleam
-
 // 1. 同一のリストに混在させるための型定義
 pub type XmlNode {
   Name(String)
