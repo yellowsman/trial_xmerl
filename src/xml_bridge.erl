@@ -9,9 +9,12 @@ parse_ordered(XmlBinary) ->
     process_node(XmlData).
 
 %% User要素の処理
+%% nameは要素名、attributesは要素が持つ属性の配列、contentは要素が持つ子要素の配列
+%% この関数ではパターンマッチによって要素名がUserの要素のみを引き受け、attributesをAttrsという変数、contentをContentという変数に束縛している
 process_node(#xmlElement{name = 'User', attributes = Attrs, content = Content}) ->
-    %% Id属性の取得
+    %% Id属性の取得, Id属性を持つ要素の値のリストをリスト内包表記を用いてフィルタしつつ生成
     Id = case [A#xmlAttribute.value || A <- Attrs, A#xmlAttribute.name == 'Id'] of
+        %% Valは要素の値、それをbinary = 文字列に変換する
         [Val] -> list_to_binary(Val);
         _ -> <<"unknown">>
     end,
